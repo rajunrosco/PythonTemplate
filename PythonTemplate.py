@@ -1,4 +1,4 @@
-# Python 3.6 Template
+# Personal Python 3.6 Template
 import getopt
 import os
 import sys
