@@ -1,0 +1,15 @@
+altgraph==0.14
+appdirs==1.4.3
+beautifulsoup4==4.6.0
+future==0.16.0
+lxml==4.1.1
+macholib==1.8
+numpy==1.13.3
+p4python==2017.1.1526044
+packaging==16.8
+pefile==2017.9.3
+protobuf==3.4.0
+PyInstaller==3.3
+pyparsing==2.2.0
+pypiwin32==220
+six==1.11.0
