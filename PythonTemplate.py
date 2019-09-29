@@ -1,4 +1,3 @@
-# Test
 # Personal Python 3.6 Template
 import getopt
 import os
