@@ -5,6 +5,9 @@ import sys
 import shutil
 
 
+
+
+
 # Reference to module located outside current project path relative to current script path
 this_modulepath = os.path.dirname(os.path.realpath(__file__))
 ExternalPath = this_modulepath+"\\..\\..\\..\\..\\Scripts\\ExternalModuleDirectory"
