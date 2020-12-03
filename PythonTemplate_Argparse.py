@@ -28,7 +28,7 @@ def ProccessCmdLineArgs():
 def main():
     global ARG
     ProccessCmdLineArgs()
-    print(ARG.PARAM1,ARG.PARAM2)
+    print(ARG.PARAM1,ARG.PARAM2,ARG.OPTION1)
 
 if __name__ == '__main__':
 	main()

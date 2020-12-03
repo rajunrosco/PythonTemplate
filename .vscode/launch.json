@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "PythonTemplate --test2=hello",
+            "type": "python",
+            "request": "launch",
+            "program": "PythonTemplate.py",
+            "console": "integratedTerminal",
+            "args": ["--test2","hello","--test1"]
+        },
+        {
+            "name": "Pythontemplate_Argparse",
+            "type": "python",
+            "request": "launch",
+            "program": "PythonTemplate_Argparse.py",
+            "console": "integratedTerminal",
+            "args": ["myArg1","myArg3"]
+        }
+    ]
+}

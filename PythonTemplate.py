@@ -4,19 +4,20 @@ import os
 import sys
 import shutil
 
-
-
-
-
 # Reference to module located outside current project path relative to current script path
 this_modulepath = os.path.dirname(os.path.realpath(__file__))
-ExternalPath = this_modulepath+"\\..\\..\\..\\..\\Scripts\\ExternalModuleDirectory"
+
+# join using the default os separator to get this_modulepath+"\..\PythonExperiments"
+ExternalPath = (os.sep).join([this_modulepath,'..','PythonExperiments'])
 
 if os.path.exists(ExternalPath):
     sys.path.insert(0, ExternalPath)
-    import externalmodule
-#else:
-#    sys.exit(-1)  # option to end script execution of external module is not found
+    import DateTimeTest  # module from external PythonExperiments GitHub repository
+else:
+    sys.exit(-1)  # option to end script execution of external module is not found
+
+# retrieves environment variable or None if it does not exist
+ENV_VAR = os.getenv("ENV_VARNAME")
 
 
 

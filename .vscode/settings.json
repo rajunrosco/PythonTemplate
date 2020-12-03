@@ -1,3 +1,8 @@
 {
-    "python.pythonPath": "c:\\GitHub\\PythonTemplate\\.venv\\Scripts\\python.exe"
+    "python.pythonPath": "c:\\GitHub\\PythonTemplate\\.venv\\Scripts\\python.exe",
+
+    // Get rid of annoying lindting errors from pylance where modules are not found outside of workspace
+    "python.analysis.extraPaths": [
+        "../PythonExperiments"
+    ]
 }
