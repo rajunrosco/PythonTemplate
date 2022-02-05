@@ -1,37 +1,55 @@
-# Personal Python 3.6 Template
+# Personal Python 3.7+ Template
+import argparse
 import getopt
 import os
+import pathlib
 import sys
-import shutil
 
-# Reference to module located outside current project path relative to current script path
-this_modulepath = os.path.dirname(os.path.realpath(__file__))
+# global vars
+G_ARGS = None
 
-# join using the default os separator to get this_modulepath+"\..\PythonExperiments"
-ExternalPath = (os.sep).join([this_modulepath,'..','PythonExperiments'])
+# current path of this module
+G_modulepath = pathlib.Path.cwd()
 
-if os.path.exists(ExternalPath):
-    sys.path.insert(0, ExternalPath)
+# load modules external to this location
+try:
+    sys.path.insert(0, str( pathlib.Path.resolve(G_modulepath/'..'/'PythonExperiments'/'DateTimeTest') ))
     import DateTimeTest  # module from external PythonExperiments GitHub repository
-else:
-    sys.exit(-1)  # option to end script execution of external module is not found
+    sys.path.insert(0, str( pathlib.Path.resolve(G_modulepath/'..'/'PythonExperiments'/'PandasTest') ))
+    import PandasTEST  # module from external PythonExperiments GitHub repository
+except ModuleNotFoundError as e:
+    print("[EXCEPTION] {}".format(e.msg))
+    sys.exit(1)
+
+# custom exception for this module
+class PythonTemplateException(Exception):
+    def __init__(self, message="PythonTemplateException."):
+        self.message = "[EXCEPTION] {}".format(message)
+    def __str__(self):
+        return f'{self.message}'
 
 # retrieves environment variable or None if it does not exist
 ENV_VAR = os.getenv("ENV_VARNAME")
 
+def LOG(message):
+    print("[Log] {}".format(str(message)))
+
+def ERROR(message):
+    print("[ERROR] {}".format(str(message)))
+
+def ProccessCmdLineArgs():
+    parser = argparse.ArgumentParser(description='PythonTemplate')
+    #required positional string argument
+    parser.add_argument(    'PARAM',
+                            type=int,
+                            help='Parameter'
+                        )
+    global G_ARGS  #required to modify global variable G_ARGS (not required to read it)
+    G_ARGS = parser.parse_args()
 
 
-def print_usage():
-    """
-    Help printout for current Script
-    """
-
-    print("")
-    print("ScriptName <OPTIONS>")
-    print("")
-    print("  {: <15} {: >10}".format(*['-h, -?, --help','Displays this help output']))
-    print("  {: <15} {: >10}".format(*['--test','Test Scriptname'])) 
-
+def MethodWithException():
+    raise PythonTemplateException("Something bad in MethodWithException")
 
 
 ######################################################################################################################################################################
@@ -39,43 +57,25 @@ def print_usage():
 # Main()
 #
 ######################################################################################################################################################################
-    
-
 def Main(argv):
+    ProccessCmdLineArgs()
 
-
-
-    try:
-        opts, args = getopt.getopt(sys.argv[1:],
-                                   '?h',                # each character represents a sort option -?, -H
-                                   ['help','test1','test2=']      # each list entry represents a long option --help, etc.
-                                   )
-    except getopt.GetoptError as err:
-        print (str(err))
-        print_usage()
-        sys.exit(2)
-    except:
-        print("Unexpected error:", sys.exc_info()[0])
-        print_usage()
-        sys.exit(2)
-
-    # Example:  python.exe PythonTemplate.py --test1 --test2=test2val file1 file2
-    # Result:
-    #    opts: [('--test1', ''), ('--test2', 'test2val')]
-    #    args: ['file1', 'file2']
-    print("opts: "+repr(opts))
-    print("args: "+repr(args))
-
-    for opt, val in opts:
-        if opt in ['-?','-h','--help']:
-            print_usage()
-            sys.exit(0)
-        if opt in ['--test1','--test2']:
-            print('TEST MODE')
-
-
-
+    if G_ARGS.PARAM == 1:
+        LOG("Hello")
+    elif G_ARGS.PARAM ==2:
+        LOG("Goodbye")
+    else:
+        try:
+            MethodWithException()
+        except PythonTemplateException as e:
+            print(e.message)
+        finally:
+            sys.exit(1)
 
 # If module is executed by name using python.exe, enter script through Main() method.  If it is imported as a module, Main() is never executed at it is used as a library
 if __name__ == "__main__":
     Main(sys.argv)
+        
+
+
+
